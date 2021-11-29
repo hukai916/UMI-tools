@@ -10,6 +10,7 @@ import collections
 import matplotlib
 import copy
 import regex
+import math
 
 # require to run on systems with no X11
 matplotlib.use('Agg')
