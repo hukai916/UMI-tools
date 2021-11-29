@@ -312,7 +312,12 @@ def getKneeEstimateDistance(cell_barcode_counts,
 
         return(distToLine, idxOfBestPoint)
 
-    counts = [x[1] for x in cell_barcode_counts.most_common()]
+    # Filter lowly expressed barcodes since they are very likely not real.
+    median_top_1p = len(cell_barcode_counts.most_common())/200
+    cutoff = math.ceil(cell_barcode_counts.most_common()[int(median_top_1p)][1] * 0.005)
+    cutoff = max(2, cutoff)
+
+    counts = [x[1] for x in cell_barcode_counts.most_common() if x[1] >= cutoff]
     values = list(np.cumsum(counts))
 
     # We need to perform the distance knee iteratively with reduced
@@ -323,7 +328,7 @@ def getKneeEstimateDistance(cell_barcode_counts,
     if idxOfBestPoint == 0:
         raise ValueError("Something's gone wrong here!!")
 
-    max_iterations = 100
+    max_iterations = 0 # no longer needed if filtering out using cutoff
     iterations = 0
     while idxOfBestPoint - previous_idxOfBestPoint != 0:
         previous_idxOfBestPoint = idxOfBestPoint
