@@ -322,6 +322,7 @@ def getKneeEstimateDistance(cell_barcode_counts,
 
     counts = [x[1] for x in cell_barcode_counts.most_common() if x[1] >= cutoff]
     values = list(np.cumsum(counts))
+    print(counts)
 
     # We need to perform the distance knee iteratively with reduced
     # number of CBs since it's sensitive to the number of CBs input
