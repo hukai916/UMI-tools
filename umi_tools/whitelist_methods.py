@@ -315,7 +315,7 @@ def getKneeEstimateDistance(cell_barcode_counts,
 
     # Filter lowly expressed barcodes since they are very likely not real.
     median_top_1p = len(cell_barcode_counts.most_common())/200
-    cutoff = math.ceil(cell_barcode_counts.most_common()[int(median_top_1p)][1] * 0.005)
+    cutoff = math.ceil(cell_barcode_counts.most_common()[int(median_top_1p)][1] * 0.01)
     print("# TEST: ", cell_barcode_counts.most_common()[int(median_top_1p)])
     cutoff = max(5, cutoff)
     print("# Cutoff for filtering out unlikely barcodes: ", cutoff)
